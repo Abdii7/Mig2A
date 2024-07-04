@@ -94,7 +94,12 @@
         }
       }
     </style>
-    <script type="text/javascript" src="node_modules/iink-ts/dist/iink.min.js"></script>
+    <script type="text/javascript" src="assets/iink.min.js" onload="console.log('iink.min.js loaded successfully'); checkIink();" onerror="console.error('Error loading iink.min.js')"></script>
+    <script>
+      function checkIink() {
+        console.log('iink:', typeof iink !== 'undefined' ? 'defined' : 'undefined');
+      }
+    </script>
   </head>
   <body>
     <div id="result"></div>
