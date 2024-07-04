@@ -85,4 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Recognized Text: ' + text);
             })
             .catch(function(err) {
-                console
+                console.error(err);
+            });
+    });
+});
