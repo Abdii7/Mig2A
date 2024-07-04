@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -8,227 +8,228 @@
     <meta name="HandheldFriendly" content="true" />
     <title>Handwriting Recognition</title>
     <style>
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 12px;
-        z-index: 25;
-        border-top: 1px solid #d7dde3;
-        border-bottom: 1px solid #d7dde3;
-        padding: 12px;
-      }
-      select {
-        width: auto;
-        padding: 0 35px 0 15px;
-        color: #131f26;
-        background: url(data:image/svg+xml;base64,...) right center no-repeat #fff;
-        -webkit-appearance: none;
-        appearance: none;
-        height: 40px;
-        font: 600 16px "Source Sans Pro", sans-serif;
-        border: 1px solid #ced5d9;
-        border-radius: 3px;
-        -webkit-tap-highlight-color: transparent;
-      }
-      button:focus,
-      select:focus {
-        outline: 2px solid #9b0000;
-        box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16);
-      }
-      .button-div {
-        display: flex;
-        gap: 12px;
-      }
-      .nav-btn {
-        display: inline-block;
-        cursor: pointer;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        font-size: 24px;
-        color: #fff;
-        background-color: #1a9fff;
-        font-family: "Roboto", sans-serif;
-        text-align: center;
-        text-transform: uppercase;
-        outline: none;
-        border: none;
-        transition: all 0.1s ease-out;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.225);
-      }
-      .nav-btn:active {
-        background: #0065b8;
-        box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
-      }
-      .nav-btn:disabled {
-        pointer-events: none;
-        cursor: default;
-        background-color: #ececec;
-        box-shadow: none;
-      }
-      #result {
-        min-height: 100px;
-        max-height: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: auto;
-        width: 100%;
-        text-align: center;
-      }
-      #editor {
-        width: 100vw;
-        height: calc(100vh - 166px);
-      }
-      @media only screen and (max-width: 478px) {
-        #editor {
-          height: calc(100vh - 215px);
+        * {
+            box-sizing: border-box;
         }
-      }
+        body {
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            z-index: 25;
+            border-top: 1px solid #d7dde3;
+            border-bottom: 1px solid #d7dde3;
+            padding: 12px;
+        }
+        select {
+            width: auto;
+            padding: 0 35px 0 15px;
+            color: #131f26;
+            background: url(data:image/svg+xml;base64,...) right center no-repeat #fff;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 40px;
+            font: 600 16px "Source Sans Pro", sans-serif;
+            border: 1px solid #ced5d9;
+            border-radius: 3px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        button:focus,
+        select:focus {
+            outline: 2px solid #9b0000;
+            box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.16);
+        }
+        .button-div {
+            display: flex;
+            gap: 12px;
+        }
+        .nav-btn {
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            color: #fff;
+            background-color: #1a9fff;
+            font-family: "Roboto", sans-serif;
+            text-align: center;
+            text-transform: uppercase;
+            outline: none;
+            border: none;
+            transition: all 0.1s ease-out;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.225);
+        }
+        .nav-btn:active {
+            background: #0065b8;
+            box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.5);
+        }
+        .nav-btn:disabled {
+            pointer-events: none;
+            cursor: default;
+            background-color: #ececec;
+            box-shadow: none;
+        }
+        #result {
+            min-height: 100px;
+            max-height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            width: 100%;
+            text-align: center;
+        }
+        #editor {
+            width: 100vw;
+            height: calc(100vh - 166px);
+        }
+        @media only screen and (max-width: 478px) {
+            #editor {
+                height: calc(100vh - 215px);
+            }
+        }
     </style>
+    <!-- Ensure the path to iink.min.js is correct -->
     <script type="text/javascript" src="assets/iink.min.js" onload="console.log('iink.min.js loaded successfully'); checkIink();" onerror="console.error('Error loading iink.min.js')"></script>
     <script>
-      function checkIink() {
-        console.log('iink:', typeof iink !== 'undefined' ? 'defined' : 'undefined');
-      }
+        function checkIink() {
+            console.log('iink:', typeof iink !== 'undefined' ? 'defined' : 'undefined');
+        }
     </script>
-  </head>
-  <body>
+</head>
+<body>
     <div id="result"></div>
     <nav>
-      <div class="button-div">
-        <button id="clear" class="nav-btn" disabled>Clear</button>
-        <button id="undo" class="nav-btn" disabled>Undo</button>
-        <button id="redo" class="nav-btn" disabled>Redo</button>
-      </div>
-      <select id="language"></select>
+        <div class="button-div">
+            <button id="clear" class="nav-btn" disabled>Clear</button>
+            <button id="undo" class="nav-btn" disabled>Undo</button>
+            <button id="redo" class="nav-btn" disabled>Redo</button>
+        </div>
+        <select id="language"></select>
     </nav>
     <div>
-      <input type="file" id="fileInput" accept="image/*" capture="camera">
+        <input type="file" id="fileInput" accept="image/*" capture="camera">
     </div>
     <div id="editor" touch-action="none"></div>
     <button id="convert">Convert to Text</button>
     <script>
-      const editorElement = document.getElementById("editor");
-      const resultElement = document.getElementById("result");
-      const languageElement = document.getElementById("language");
-      const clearElement = document.getElementById("clear");
-      const undoElement = document.getElementById("undo");
-      const redoElement = document.getElementById("redo");
+        const editorElement = document.getElementById("editor");
+        const resultElement = document.getElementById("result");
+        const languageElement = document.getElementById("language");
+        const clearElement = document.getElementById("clear");
+        const undoElement = document.getElementById("undo");
+        const redoElement = document.getElementById("redo");
 
-      async function loadEditor() {
-        const options = {
-          configuration: {
-            server: {
-              protocol: "WEBSOCKET",
-              scheme: "https",
-              host: "cloud.myscript.com",
-              applicationKey: "777931cf-665a-49a8-90a0-f231394aebe2",
-              hmacKey: "5dd90f47-e6b5-4d7c-8bba-4130fda598f6"
-            },
-            recognition: {
-              type: "TEXT"
-            }
-          }
-        };
-
-        const editor = new iink.Editor(editorElement, options);
-        await editor.initialize();
-
-        const currentLanguage = editor.configuration.recognition.lang;
-        const availableLanguageResponse = await iink.getAvailableLanguageList(editor.configuration);
-        Object.keys(availableLanguageResponse.result).forEach(function (key) {
-          const selected = currentLanguage === key;
-          languageElement.options[languageElement.options.length] = new Option(availableLanguageResponse.result[key], key, selected, selected);
-        });
-
-        editor.events.addEventListener("changed", (event) => {
-          undoElement.disabled = !event.detail.canUndo;
-          redoElement.disabled = !event.detail.canRedo;
-          clearElement.disabled = !event.detail.canClear;
-        });
-
-        editor.events.addEventListener("exported", (event) => {
-          resultElement.innerHTML =
-            event.detail && event.detail["application/vnd.myscript.jiix"] ? event.detail["application/vnd.myscript.jiix"].label : "";
-        });
-
-        clearElement.addEventListener("click", async () => {
-          await editor.clear();
-        });
-
-        undoElement.addEventListener("click", async () => {
-          await editor.undo();
-        });
-
-        redoElement.addEventListener("click", async () => {
-          await editor.redo();
-        });
-
-        languageElement.addEventListener("change", (e) => {
-          const configuration = JSON.parse(JSON.stringify(editor.configuration));
-          configuration.recognition.lang = e.target.value;
-          editor.configuration = configuration;
-        });
-
-        window.addEventListener("resize", () => {
-          editor.resize();
-        });
-
-        document.getElementById('fileInput').addEventListener('change', function(event) {
-          const file = event.target.files[0];
-          if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-              const dataURL = e.target.result;
-              processImage(dataURL);
+        async function loadEditor() {
+            const options = {
+                configuration: {
+                    server: {
+                        protocol: "WEBSOCKET",
+                        scheme: "https",
+                        host: "cloud.myscript.com",
+                        applicationKey: "777931cf-665a-49a8-90a0-f231394aebe2",
+                        hmacKey: "5dd90f47-e6b5-4d7c-8bba-4130fda598f6"
+                    },
+                    recognition: {
+                        type: "TEXT"
+                    }
+                }
             };
-            reader.readAsDataURL(file);
-          }
-        });
 
-        async function processImage(dataURL) {
-          console.log('Processing image...');
-          const byteString = atob(dataURL.split(',')[1]);
-          const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
-          const ab = new ArrayBuffer(byteString.length);
-          const ia = new Uint8Array(ab);
-          for (let i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-          }
-          const blob = new Blob([ab], { type: mimeString });
-          const reader = new FileReader();
-          reader.onload = async function(e) {
-            try {
-              await editor.import_(e.target.result, 'image/png');
-              console.log('Image imported successfully');
-            } catch (err) {
-              console.error('Error importing image:', err);
+            const editor = new iink.Editor(editorElement, options);
+            await editor.initialize();
+
+            const currentLanguage = editor.configuration.recognition.lang;
+            const availableLanguageResponse = await iink.getAvailableLanguageList(editor.configuration);
+            Object.keys(availableLanguageResponse.result).forEach(function (key) {
+                const selected = currentLanguage === key;
+                languageElement.options[languageElement.options.length] = new Option(availableLanguageResponse.result[key], key, selected, selected);
+            });
+
+            editor.events.addEventListener("changed", (event) => {
+                undoElement.disabled = !event.detail.canUndo;
+                redoElement.disabled = !event.detail.canRedo;
+                clearElement.disabled = !event.detail.canClear;
+            });
+
+            editor.events.addEventListener("exported", (event) => {
+                resultElement.innerHTML =
+                    event.detail && event.detail["application/vnd.myscript.jiix"] ? event.detail["application/vnd.myscript.jiix"].label : "";
+            });
+
+            clearElement.addEventListener("click", async () => {
+                await editor.clear();
+            });
+
+            undoElement.addEventListener("click", async () => {
+                await editor.undo();
+            });
+
+            redoElement.addEventListener("click", async () => {
+                await editor.redo();
+            });
+
+            languageElement.addEventListener("change", (e) => {
+                const configuration = JSON.parse(JSON.stringify(editor.configuration));
+                configuration.recognition.lang = e.target.value;
+                editor.configuration = configuration;
+            });
+
+            window.addEventListener("resize", () => {
+                editor.resize();
+            });
+
+            document.getElementById('fileInput').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const dataURL = e.target.result;
+                        processImage(dataURL);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            async function processImage(dataURL) {
+                console.log('Processing image...');
+                const byteString = atob(dataURL.split(',')[1]);
+                const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                const blob = new Blob([ab], { type: mimeString });
+                const reader = new FileReader();
+                reader.onload = async function(e) {
+                    try {
+                        await editor.import_(e.target.result, 'image/png');
+                        console.log('Image imported successfully');
+                    } catch (err) {
+                        console.error('Error importing image:', err);
+                    }
+                };
+                reader.readAsArrayBuffer(blob);
             }
-          };
-          reader.readAsArrayBuffer(blob);
+
+            document.getElementById('convert').addEventListener('click', async function() {
+                try {
+                    const exportedText = await editor.export_('text/plain');
+                    console.log('Exported text:', exportedText);
+                    alert('Recognized Text: ' + exportedText);
+                } catch (err) {
+                    console.error('Error exporting text:', err);
+                }
+            });
         }
 
-        document.getElementById('convert').addEventListener('click', async function() {
-          try {
-            const exportedText = await editor.export_('text/plain');
-            console.log('Exported text:', exportedText);
-            alert('Recognized Text: ' + exportedText);
-          } catch (err) {
-            console.error('Error exporting text:', err);
-          }
-        });
-      }
-
-      loadEditor().catch((error) => console.error(error));
+        loadEditor().catch((error) => console.error(error));
     </script>
-  </body>
+</body>
 </html>
