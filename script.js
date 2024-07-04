@@ -1,38 +1,23 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Access camera
-    var video = document.getElementById('video');
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    var snapButton = document.getElementById('snap');
     var fileInput = document.getElementById('fileInput');
     var editorElement = document.getElementById('editor');
     var editor;
 
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-            video.srcObject = stream;
-        })
-        .catch(function(err) {
-            console.error("Error accessing camera: " + err);
-        });
-
-    snapButton.addEventListener('click', function() {
-        context.drawImage(video, 0, 0, 640, 480);
-        var dataURL = canvas.toDataURL('image/png');
-        processImage(dataURL);
-    });
-
     fileInput.addEventListener('change', function(event) {
         var file = event.target.files[0];
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            var dataURL = e.target.result;
-            processImage(dataURL);
-        };
-        reader.readAsDataURL(file);
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var dataURL = e.target.result;
+                processImage(dataURL);
+            };
+            reader.readAsDataURL(file);
+        }
     });
 
     function processImage(dataURL) {
+        console.log('Processing image...');
+        
         // Convert base64 to blob
         var byteString = atob(dataURL.split(',')[1]);
         var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
@@ -45,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Initialize MyScript editor with image
         if (!editor) {
+            console.log('Initializing editor...');
             editor = new MyScript.Editor(editorElement, {
                 recognitionParams: {
                     server: {
@@ -62,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var reader = new FileReader();
         reader.onload = function(e) {
+            console.log('Importing image into editor...');
             editor.import_(e.target.result, 'image/png')
                 .then(() => console.log('Image imported successfully'))
                 .catch(err => console.error('Error importing image:', err));
@@ -70,10 +57,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     document.getElementById('convert').addEventListener('click', function() {
+        console.log('Convert button clicked');
+        
         if (editor) {
+            console.log('Exporting text...');
             editor.export_('text/plain')
                 .then(function(text) {
-                    console.log(text);
+                    console.log('Exported text:', text);
                     alert('Recognized Text: ' + text);
                 })
                 .catch(function(err) {
