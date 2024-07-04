@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed');
     var fileInput = document.getElementById('fileInput');
     var editorElement = document.getElementById('editor');
     var editor;
@@ -31,19 +32,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Initialize MyScript editor with image
         if (!editor) {
             console.log('Initializing editor...');
-            editor = new MyScript.Editor(editorElement, {
-                recognitionParams: {
-                    server: {
-                        applicationKey: '777931cf-665a-49a8-90a0-f231394aebe2',
-                        hmacKey: '5dd90f47-e6b5-4d7c-8bba-4130fda598f6'
-                    },
-                    iink: {
-                        export: {
-                            mimeTypes: ['text/plain']
+            try {
+                editor = new MyScript.Editor(editorElement, {
+                    recognitionParams: {
+                        server: {
+                            applicationKey: '777931cf-665a-49a8-90a0-f231394aebe2',
+                            hmacKey: '5dd90f47-e6b5-4d7c-8bba-4130fda598f6'
+                        },
+                        iink: {
+                            export: {
+                                mimeTypes: ['text/plain']
+                            }
                         }
                     }
-                }
-            });
+                });
+                console.log('Editor initialized successfully');
+            } catch (e) {
+                console.error('Error initializing MyScript editor:', e);
+            }
         }
 
         var reader = new FileReader();
