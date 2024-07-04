@@ -6,12 +6,6 @@
     <title>Handwriting Recognition</title>
     <link rel="stylesheet" href="assets/iink.css"> <!-- Adjust path if needed -->
     <style>
-        #camera {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 20px;
-        }
         #fileInput {
             margin-bottom: 20px;
         }
@@ -24,13 +18,8 @@
     </style>
 </head>
 <body>
-    <div id="camera">
-        <video id="video" width="640" height="480" autoplay></video>
-        <button id="snap">Snap Photo</button>
-        <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
-    </div>
     <div>
-        <input type="file" id="fileInput" accept="image/*">
+        <input type="file" id="fileInput" accept="image/*" capture="camera">
     </div>
     <div id="editor"></div>
     <button id="convert">Convert to Text</button>
