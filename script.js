@@ -55,9 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
         var reader = new FileReader();
         reader.onload = function(e) {
             console.log('Importing image into editor...');
-            editor.import_(e.target.result, 'image/png')
-                .then(() => console.log('Image imported successfully'))
-                .catch(err => console.error('Error importing image:', err));
+            if (editor) {
+                editor.import_(e.target.result, 'image/png')
+                    .then(() => console.log('Image imported successfully'))
+                    .catch(err => console.error('Error importing image:', err));
+            } else {
+                console.error('Editor is not initialized');
+            }
         };
         reader.readAsArrayBuffer(blob);
     }
