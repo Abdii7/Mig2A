@@ -6,7 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var snapButton = document.getElementById('snap');
     var fileInput = document.getElementById('fileInput');
     var editorElement = document.getElementById('editor');
-    
+    var editor;
+
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(function(stream) {
             video.srcObject = stream;
@@ -43,49 +44,43 @@ document.addEventListener('DOMContentLoaded', function() {
         var blob = new Blob([ab], { type: mimeString });
 
         // Initialize MyScript editor with image
-        var editor = new MyScript.Editor(editorElement, {
-            recognitionParams: {
-                server: {
-                    applicationKey: '777931cf-665a-49a8-90a0-f231394aebe2',
-                    hmacKey: '5dd90f47-e6b5-4d7c-8bba-4130fda598f6'
-                },
-                iink: {
-                    export: {
-                        mimeTypes: ['text/plain']
+        if (!editor) {
+            editor = new MyScript.Editor(editorElement, {
+                recognitionParams: {
+                    server: {
+                        applicationKey: '777931cf-665a-49a8-90a0-f231394aebe2',
+                        hmacKey: '5dd90f47-e6b5-4d7c-8bba-4130fda598f6'
+                    },
+                    iink: {
+                        export: {
+                            mimeTypes: ['text/plain']
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
         var reader = new FileReader();
         reader.onload = function(e) {
-            editor.import_(e.target.result, 'image/png');
+            editor.import_(e.target.result, 'image/png')
+                .then(() => console.log('Image imported successfully'))
+                .catch(err => console.error('Error importing image:', err));
         };
         reader.readAsArrayBuffer(blob);
     }
 
     document.getElementById('convert').addEventListener('click', function() {
-        var editor = new MyScript.Editor(editorElement, {
-            recognitionParams: {
-                server: {
-                    applicationKey: '777931cf-665a-49a8-90a0-f231394aebe2',
-                    hmacKey: '5dd90f47-e6b5-4d7c-8bba-4130fda598f6'
-                },
-                iink: {
-                    export: {
-                        mimeTypes: ['text/plain']
-                    }
-                }
-            }
-        });
-
-        editor.export_('text/plain')
-            .then(function(text) {
-                console.log(text);
-                alert('Recognized Text: ' + text);
-            })
-            .catch(function(err) {
-                console.error(err);
-            });
+        if (editor) {
+            editor.export_('text/plain')
+                .then(function(text) {
+                    console.log(text);
+                    alert('Recognized Text: ' + text);
+                })
+                .catch(function(err) {
+                    console.error('Error exporting text:', err);
+                });
+        } else {
+            console.error('Editor not initialized');
+        }
     });
 });
