@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var editor = new MyScript.Editor(editorElement, {
         recognitionParams: {
             server: {
-                applicationKey: 'YOUR_APPLICATION_KEY',
-                hmacKey: 'YOUR_HMAC_KEY'
+                applicationKey: '777931cf-665a-49a8-90a0-f231394aebe2',
+                hmacKey: '5dd90f47-e6b5-4d7c-8bba-4130fda598f6'
             },
             iink: {
                 export: {
